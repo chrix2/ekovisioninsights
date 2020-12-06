@@ -5,36 +5,9 @@ import requests
 import json
 import matplotlib.pyplot as plt
 from datetime import datetime
-from firebase_admin import db
-import firebase_admin
-from firebase_admin import credentials
-cred = credentials.Certificate('ocrekomerciolog-26e07a31b8f7.json')
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://ocrekomerciolog-default-rtdb.firebaseio.com/'
-})
+from assets_streamlit import get_data
 
-ref = db.reference('barcodes')
-data_dict={}
-snapshot = ref.order_by_child('barcodes').get()
-for key, val in snapshot.items():
-    val['date']=datetime.fromtimestamp(val['timestamp']).strftime("%m/%d/%Y")
-    data_dict[key]=val
-
-log_dataframe = pd.DataFrame.from_dict(data_dict, orient='index')
-
-
-
-ref = db.reference('tickets')
-data_dict2={}
-snapshot = ref.order_by_child('ocr_acc').get()
-for key, val in snapshot.items():
-    val['date']=datetime.fromtimestamp(val['timestamp']).strftime("%m/%d/%Y")
-    data_dict2[key]=val
-
-log_dataframe2 = pd.DataFrame.from_dict(data_dict2, orient='index')
-
-print(log_dataframe2)
-
+log_dataframe, log_dataframe2 = get_data()
 st.title('METRICS & INSIGHTS')
 st.sidebar.text("""p.- precision\n
 r.- recall\n
@@ -58,7 +31,6 @@ with col1:
 with col2:
     st.header("OCR insights  ")
     df2 = log_dataframe2.groupby("date").count()
-    print(df2)
     st.line_chart(df2)
 
     import matplotlib.pyplot as plt
