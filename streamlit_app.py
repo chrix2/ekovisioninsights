@@ -29,8 +29,9 @@ with col1:
         st.write(pd.DataFrame.from_dict(value).sort_index(axis=1))
 
 with col2:
-    st.header("OCR insights  ")
+    st.header("OCR Insights  ")
     df2 = log_dataframe2.groupby("date").count()
+    st.subheader("Receipts Processed Daily")
     st.line_chart(df2)
 
     import matplotlib.pyplot as plt
@@ -38,6 +39,7 @@ with col2:
     arr = log_dataframe2['ocr_acc']
     fig, ax = plt.subplots()
     ax.hist(arr, bins=20)
+    st.subheader("OCR Accuracy Histogram")
     st.pyplot(fig)
 
 with col3:
@@ -50,9 +52,11 @@ with col3:
     ax.set_title('Barcodes')
     ax.set_xlabel('Barcodes found')
     ax.set_ylabel('Frequency')
+    st.subheader("Barcodes Detected Distribution")
     st.pyplot(fig)
 
     df = log_dataframe.groupby("date").count()
+    st.subheader("Receipts with Barcode Processed Daily")
     st.line_chart(df)
 
 
