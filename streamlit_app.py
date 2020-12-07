@@ -39,6 +39,8 @@ with col2:
     arr = log_dataframe2['ocr_acc']
     fig, ax = plt.subplots()
     ax.hist(arr, bins=20)
+    ax.set_xlabel('OCR accuracy')
+    ax.set_ylabel('Frequency')
     st.subheader("OCR Accuracy Histogram")
     st.pyplot(fig)
 
