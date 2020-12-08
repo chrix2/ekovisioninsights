@@ -38,14 +38,20 @@ with col2:
     import numpy as np
     arr = log_dataframe2['ocr_acc']
     fig, ax = plt.subplots()
-    ax.hist(arr, bins=20)
+    ax.hist(arr, bins=200)
     ax.set_xlabel('OCR accuracy')
     ax.set_ylabel('Frequency')
     st.subheader("OCR Accuracy Histogram")
     st.pyplot(fig)
+    st.subheader("OCR Accuracy Stats")
+    st.write(arr.describe(include='all'))
 
 with col3:
     st.header("Barcode insights")
+    df = log_dataframe.groupby("date").count()
+    st.subheader("Receipts with Barcode Processed Daily")
+    st.line_chart(df)
+
     fig, ax = plt.subplots()
     data = log_dataframe['barcodes'].value_counts()
     points = data.index
@@ -56,10 +62,10 @@ with col3:
     ax.set_ylabel('Frequency')
     st.subheader("Barcodes Detected Distribution")
     st.pyplot(fig)
+    st.subheader("Barcodes found Stats")
+    st.write(data.describe(include='all'))
 
-    df = log_dataframe.groupby("date").count()
-    st.subheader("Receipts with Barcode Processed Daily")
-    st.line_chart(df)
+
 
 
 
