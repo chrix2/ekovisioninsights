@@ -46,6 +46,28 @@ with col2:
     st.subheader("OCR Accuracy Stats")
     st.write(arr.describe(include='all'))
 
+    # import streamlit as st
+    # import plotly.figure_factory as ff
+    #
+    # hist_data = [arr.values.tolist()]
+    # group_labels = ['Group 1']
+    # fig2 = ff.create_distplot(hist_data, group_labels, bin_size = [1])
+    # st.plotly_chart(fig2, use_container_width=True)
+
+    log_dataframe3= log_dataframe2[log_dataframe2.timestamp > 1607800861.025552]
+
+    arr = log_dataframe3['ocr_acc']
+    fig, ax = plt.subplots()
+    ax.hist(arr, bins=200)
+    ax.set_xlabel('OCR accuracy V2')
+    ax.set_ylabel('Frequency')
+    st.subheader("OCR Accuracy V2 Histogram")
+    st.pyplot(fig)
+    st.subheader("OCR Accuracy V2 Stats")
+    st.write(arr.describe(include='all'))
+
+
+
 with col3:
     st.header("Barcode insights")
     df = log_dataframe.groupby("date").count()
