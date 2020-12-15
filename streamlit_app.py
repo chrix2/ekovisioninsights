@@ -30,21 +30,22 @@ with col1:
 
 with col2:
     st.header("OCR Insights  ")
+
     df2 = log_dataframe2.groupby("date").count()
     st.subheader("Receipts Processed Daily")
     st.line_chart(df2)
 
     import matplotlib.pyplot as plt
     import numpy as np
-    arr = log_dataframe2['ocr_acc']
-    fig, ax = plt.subplots()
-    ax.hist(arr, bins=200)
-    ax.set_xlabel('OCR accuracy')
-    ax.set_ylabel('Frequency')
-    st.subheader("OCR Accuracy Histogram")
-    st.pyplot(fig)
-    st.subheader("OCR Accuracy Stats")
-    st.write(arr.describe(include='all'))
+    # arr = log_dataframe2['ocr_acc']
+    # fig, ax = plt.subplots()
+    # ax.hist(arr, bins=200)
+    # ax.set_xlabel('OCR accuracy')
+    # ax.set_ylabel('Frequency')
+    # st.subheader("OCR Accuracy Histogram")
+    # st.pyplot(fig)
+    # st.subheader("OCR Accuracy Stats")
+    # st.write(arr.describe(include='all'))
 
     # import streamlit as st
     # import plotly.figure_factory as ff
@@ -71,6 +72,7 @@ with col2:
 with col3:
     st.header("Barcode insights")
     df = log_dataframe.groupby("date").count()
+    print(df.head)
     st.subheader("Receipts with Barcode Processed Daily")
     st.line_chart(df)
 
